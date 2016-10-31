@@ -19,6 +19,5 @@ public class Solution_03_09 {
             }
         }
         System.out.println(result);
-        System.out.println("fghjjj");
     }
 }
