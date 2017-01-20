@@ -15,5 +15,6 @@ public class Solution_5_03 {
                 maches++;
         }
         System.out.printf("Символ 8 в введенном числе %s встречается %d раз.", str, maches);
+
     }
 }
