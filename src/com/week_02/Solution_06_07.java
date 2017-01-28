@@ -7,26 +7,9 @@ package com.week_02;
  */
 public class Solution_06_07 {
     public static String starOut(String str1){
-        StringBuilder strBuilder = new StringBuilder(str1);
-        int index;
-        int i = 0;
-        while (true){
-            index = str1.indexOf('*', i);
-            if (index < 0) break;
-            if (index > 0 && index < str1.length()){
-                do{
-                    strBuilder.replace(index - 1, index + 1, "");
-                }
-                while (str1.charAt(index + 1) == '*');
-
-
-            }
-            i = index + 1;
-        }
-
-        return strBuilder.toString();
+        return str1.replaceAll(".{1}\\*+.{1}", "");
     }
     public static void main(String[] args) {
-        System.out.println(starOut("abc*wrd*ytdgd*dgf"));
+        System.out.println(starOut("12***3456**789**0"));
     }
 }
