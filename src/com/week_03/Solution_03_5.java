@@ -5,8 +5,7 @@ package com.week_03;
  * b) Поменять наибольший и наименьший столбик в двухмерном массиве.
  */
 public class Solution_03_5 {
-
-    private static int[][] convertMatrix(int[][] inputMatrix, boolean isRow){
+    private static int[][] convertMatrix(boolean isRow){
         int largeRow = 0; //largest row
         int smallRow = 0; //smallest row
 
@@ -15,9 +14,13 @@ public class Solution_03_5 {
 
         int tempsum = 0;
 
-        for (int i = 0; i < inputMatrix.length; i++){
-            for (int j = 0; j < inputMatrix[0].length; j++){
-                tempsum += isRow? inputMatrix[i][j] : inputMatrix[j][i];
+        int[][] resultMatrix = new int[matrixy.length][matrixy[0].length];
+        for (int i = 0; i < matrixy.length; i++)
+            System.arraycopy(matrixy[i], 0, resultMatrix[i], 0, matrixy.length);
+
+        for (int i = 0; i < resultMatrix.length; i++){
+            for (int j = 0; j < resultMatrix[0].length; j++){
+                tempsum += isRow? resultMatrix[i][j] : resultMatrix[j][i];
                 if (tempsum > maxsum){
                     maxsum = tempsum;
                     largeRow = isRow? i : j;
@@ -31,32 +34,30 @@ public class Solution_03_5 {
             tempsum = 0;
         }
 
-        for (int i = 0; i < inputMatrix[0].length; i++){
+        for (int i = 0; i < resultMatrix[0].length; i++){
             if (isRow){
-                inputMatrix[largeRow][i] ^= (inputMatrix[smallRow][i] ^= inputMatrix[largeRow][i]);
-                inputMatrix[smallRow][i] ^= inputMatrix[largeRow][i];
+                resultMatrix[largeRow][i] ^= (resultMatrix[smallRow][i] ^= resultMatrix[largeRow][i]);
+                resultMatrix[smallRow][i] ^= resultMatrix[largeRow][i];
             }
             else {
-                inputMatrix[i][largeRow] ^= (inputMatrix[i][smallRow] ^= inputMatrix[i][largeRow]);
-                inputMatrix[i][smallRow] ^= inputMatrix[i][largeRow];
+                resultMatrix[i][largeRow] ^= (resultMatrix[i][smallRow] ^= resultMatrix[i][largeRow]);
+                resultMatrix[i][smallRow] ^= resultMatrix[i][largeRow];
             }
-
         }
-        int[][] resultMatrix = new int[inputMatrix.length][inputMatrix[0].length];
-        for (int i = 0; i < inputMatrix.length; i++)
-            System.arraycopy(inputMatrix[i], 0, resultMatrix[i], 0, inputMatrix.length);
-
         return resultMatrix;
     }
 
+    private static int[][] matrixy = MatrixUtils.genMatrix();
+
     public static void main(String[] args) {
-       int[][] matrixy =  MatrixUtils.genMatrix();
+
        //a
         System.out.println("Result Matrix with Raws exchange:");
-        MatrixUtils.printMatrix(convertMatrix(matrixy, true));
+        MatrixUtils.printMatrix(convertMatrix(true));
 
         //b
         System.out.println("Result Matrix with Collumns exchange:");
-        MatrixUtils.printMatrix(convertMatrix(matrixy, false));
+        MatrixUtils.printMatrix(convertMatrix(false));
+        //test
     }
 }
